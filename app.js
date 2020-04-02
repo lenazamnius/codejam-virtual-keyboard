@@ -1,4 +1,4 @@
-const keyValues = [
+const keys = [
   { Backquote: '&#96' },
   { Digit1: '1' },
   { Digit2: '2' },
@@ -68,24 +68,17 @@ const body = document.querySelector('body');
 const boardWrapper = document.createElement('div');
 const textarea = document.createElement('textarea');
 const boardContainer = document.createElement('div');
-// const keyValues = ['&#96', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '&#45', '&#61', 'backspace',
-//   'tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '&#91', '&#93', '&#92', 'del',
-//   'caps lock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', '&#59', '&#39', 'enter',
-//   'shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', '&#44', '&#46', '&#47', '&#8593', 'shift',
-//   'ctrl', 'win', 'alt', ' ', 'alt', '&#8592', '&#8595', '&#8594', 'ctrl'];
 let key;
 
-function createKey(value) {
+function createKey(value, keyName) {
   key = document.createElement('div');
+  key.setAttribute('id', `${keyName}`);
   key.innerHTML = value;
   key.classList.add('key-item');
   if (value === ' ') {
-    key.classList.add('space');
-    key.classList.add('key-item');
+    key.classList.add('space', 'key-item');
   } else if (value === 'backspace' || value === 'caps lock' || value === 'shift' || value === 'enter') {
-    key.classList.add('double');
-    key.classList.add('special');
-    key.classList.add('key-item');
+    key.classList.add('double', 'special', 'key-item');
   } else {
     key.classList.add('key-item');
   }
@@ -99,19 +92,35 @@ function createBoard() {
   textarea.setAttribute('readonly', '');
   boardWrapper.appendChild(boardContainer);
   boardContainer.classList.add('board-container');
-  for (let i = 0; i < keyValues.length; i += 1) {
-    // boardContainer.appendChild(createKey(keyValues[i]));
-    boardContainer.appendChild(createKey(Object.values(keyValues[i])[0]));
+  let keyObjValues;
+  let keyName;
+  for (let i = 0; i < keys.length; i += 1) {
+    keyObjValues = Object.values(keys[i]);
+    keyName = Object.keys(keys[i]);
+    boardContainer.appendChild(createKey(keyObjValues[0], keyName[0]));
   }
 }
 
 createBoard();
 
 function keyDownEvent(event) {
-  if (event.code) {
+  event.preventDefault();
+  const pressedKey = event.code;
+  document.querySelector(`#${pressedKey}`).classList.add('active');
+  // if (event.code ===) {
 
-  }
+  // }
 }
 
+function keyUpEvent(event) {
+  event.preventDefault();
+  const pressedKey = event.code;
+  document.querySelector(`#${pressedKey}`).classList.remove('active');
+  // if (event.code ===) {
+
+  // }
+}
+
+
 document.addEventListener('keydown', (event) => keyDownEvent(event));
-// document.addEventListener('keyup', (evt) => keyUpEvent(evt));
+document.addEventListener('keyup', (event) => keyUpEvent(event));
