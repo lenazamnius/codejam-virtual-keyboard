@@ -1,87 +1,90 @@
 const keys = [
-  { Backquote: '&#96' },
-  { Digit1: '1' },
-  { Digit2: '2' },
-  { Digit3: '3' },
-  { Digit4: '4' },
-  { Digit5: '5' },
-  { Digit6: '6' },
-  { Digit7: '7' },
-  { Digit8: '8' },
-  { Digit9: '9' },
-  { Digit0: '0' },
-  { Minus: '&#45' },
-  { Equal: '&#61' },
-  { Backspace: 'backspace' },
-  { Tab: 'tab' },
-  { KeyQ: 'q' },
-  { KeyW: 'w' },
-  { KeyE: 'e' },
-  { KeyR: 'r' },
-  { KeyT: 't' },
-  { KeyY: 'y' },
-  { KeyU: 'u' },
-  { KeyI: 'i' },
-  { KeyO: 'o' },
-  { KeyP: 'p' },
-  { BracketLeft: '&#91' },
-  { BracketRight: '&#93' },
-  { Backslash: '&#92' },
-  { Delete: 'del' },
-  { CapsLock: 'caps lock' },
-  { KeyA: 'a' },
-  { KeyS: 's' },
-  { KeyD: 'd' },
-  { KeyF: 'f' },
-  { KeyG: 'g' },
-  { KeyH: 'h' },
-  { KeyJ: 'j' },
-  { KeyK: 'k' },
-  { KeyL: 'l' },
-  { Semicolon: '&#59' },
-  { Quote: '&#39' },
-  { Enter: 'enter' },
-  { ShiftLeft: 'shift' },
-  { KeyZ: 'z' },
-  { KeyX: 'x' },
-  { KeyC: 'c' },
-  { KeyV: 'v' },
-  { KeyB: 'b' },
-  { KeyN: 'n' },
-  { KeyM: 'm' },
-  { Comma: '&#44' },
-  { Period: '&#46' },
-  { Slash: '&#47' },
-  { ArrowUp: '&#8593' },
-  { ShiftRight: 'shift' },
-  { ControlLeft: 'ctrl' },
-  { MetaLeft: 'win' },
-  { AltLeft: 'alt' },
-  { Space: ' ' },
-  { AltRight: 'alt' },
-  { ArrowLeft: '&#8592' },
-  { ArrowDown: '&#8595' },
-  { ArrowRight: '&#8594' },
-  { ControlRight: 'ctrl' },
+  { type: 'symbol', code: 'Backquote', boardValue: '&#96' },
+  { type: 'symbol', code: 'Digit2', boardValue: '2' },
+  { type: 'symbol', code: 'Digit1', boardValue: '1' },
+  { type: 'symbol', code: 'Digit3', boardValue: '3' },
+  { type: 'symbol', code: 'Digit4', boardValue: '4' },
+  { type: 'symbol', code: 'Digit5', boardValue: '5' },
+  { type: 'symbol', code: 'Digit6', boardValue: '6' },
+  { type: 'symbol', code: 'Digit7', boardValue: '7' },
+  { type: 'symbol', code: 'Digit8', boardValue: '8' },
+  { type: 'symbol', code: 'Digit9', boardValue: '9' },
+  { type: 'symbol', code: 'Digit0', boardValue: '0' },
+  { type: 'symbol', code: 'Minus', boardValue: '&#45' },
+  { type: 'symbol', code: 'Equal', boardValue: '&#61' },
+  { type: 'action', code: 'Backspace', boardValue: 'backspace' },
+  { type: 'symbol', code: 'Tab', boardValue: 'tab' },
+  { type: 'symbol', code: 'KeyQ', boardValue: 'q' },
+  { type: 'symbol', code: 'KeyW', boardValue: 'w' },
+  { type: 'symbol', code: 'KeyE', boardValue: 'e' },
+  { type: 'symbol', code: 'KeyR', boardValue: 'r' },
+  { type: 'symbol', code: 'KeyT', boardValue: 't' },
+  { type: 'symbol', code: 'KeyY', boardValue: 'y' },
+  { type: 'symbol', code: 'KeyU', boardValue: 'u' },
+  { type: 'symbol', code: 'KeyI', boardValue: 'i' },
+  { type: 'symbol', code: 'KeyO', boardValue: 'o' },
+  { type: 'symbol', code: 'KeyP', boardValue: 'p' },
+  { type: 'symbol', code: 'BracketLeft', boardValue: '&#91' },
+  { type: 'symbol', code: 'BracketRight', boardValue: '&#93' },
+  { type: 'symbol', code: 'Backslash', boardValue: '&#92' },
+  { type: 'action', code: 'Delete', boardValue: 'del' },
+  { type: 'action', code: 'CapsLock', boardValue: 'caps lock' },
+  { type: 'symbol', code: 'KeyA', boardValue: 'a' },
+  { type: 'symbol', code: 'KeyS', boardValue: 's' },
+  { type: 'symbol', code: 'KeyD', boardValue: 'd' },
+  { type: 'symbol', code: 'KeyF', boardValue: 'f' },
+  { type: 'symbol', code: 'KeyG', boardValue: 'g' },
+  { type: 'symbol', code: 'KeyH', boardValue: 'h' },
+  { type: 'symbol', code: 'KeyJ', boardValue: 'j' },
+  { type: 'symbol', code: 'KeyK', boardValue: 'k' },
+  { type: 'symbol', code: 'KeyL', boardValue: 'l' },
+  { type: 'symbol', code: 'Semicolon', boardValue: '&#59' },
+  { type: 'symbol', code: 'Quote', boardValue: '&#39' },
+  { type: 'action', code: 'Enter', boardValue: 'enter' },
+  { type: 'action', code: 'ShiftLeft', boardValue: 'shift' },
+  { type: 'symbol', code: 'KeyZ', boardValue: 'z' },
+  { type: 'symbol', code: 'KeyX', boardValue: 'x' },
+  { type: 'symbol', code: 'KeyC', boardValue: 'c' },
+  { type: 'symbol', code: 'KeyV', boardValue: 'v' },
+  { type: 'symbol', code: 'KeyB', boardValue: 'b' },
+  { type: 'symbol', code: 'KeyN', boardValue: 'n' },
+  { type: 'symbol', code: 'KeyM', boardValue: 'm' },
+  { type: 'symbol', code: 'Comma', boardValue: '&#44' },
+  { type: 'symbol', code: 'Period', boardValue: '&#46' },
+  { type: 'symbol', code: 'Slash', boardValue: '&#47' },
+  { type: 'symbol', code: 'ArrowUp', boardValue: '&#8593' },
+  { type: 'action', code: 'ShiftRight', boardValue: 'shift' },
+  { type: 'action', code: 'ControlLeft', boardValue: 'ctrl' },
+  { type: 'action', code: 'MetaLeft', boardValue: 'win' },
+  { type: 'action', code: 'AltLeft', boardValue: 'alt' },
+  { type: 'symbol', code: 'Space', boardValue: '&nbsp;' },
+  { type: 'symbol', code: 'AltRight', boardValue: 'alt' },
+  { type: 'symbol', code: 'ArrowLeft', boardValue: '&#8592' },
+  { type: 'symbol', code: 'ArrowDown', boardValue: '&#8595' },
+  { type: 'symbol', code: 'ArrowRight', boardValue: '&#8594' },
+  { type: 'action', code: 'ControlRight', boardValue: 'ctrl' },
 ];
+
 const body = document.querySelector('body');
 const boardWrapper = document.createElement('div');
 const textarea = document.createElement('textarea');
 const boardContainer = document.createElement('div');
 let key;
+let boardValue;
+let keyCode;
+let keyType;
 
-textarea.setAttribute('placeholder', 'Change language with combination "shift + ctrl"');
-
-function createKey(value, keyName) {
+function createKey(value, code, type) {
   key = document.createElement('div');
-  key.setAttribute('id', `${keyName}`);
+  key.setAttribute('id', `${code}`);
+  key.setAttribute('data-type', `${type}`);
   key.innerHTML = value;
   key.classList.add('key-item');
   if (value === 'tab' || value === 'del' || value === 'ctrl' || value === 'win' || value === 'alt') {
     key.classList.add('special', 'key-item');
   } else if (value === 'backspace' || value === 'caps lock' || value === 'shift' || value === 'enter') {
     key.classList.add('double', 'special', 'key-item');
-  } else if (value === ' ') {
+  } else if (value === '&nbsp;') {
     key.classList.add('space', 'key-item');
   } else {
     key.classList.add('key-item');
@@ -93,39 +96,47 @@ function createBoard() {
   body.appendChild(boardWrapper);
   boardWrapper.classList.add('wrapper');
   boardWrapper.appendChild(textarea);
+  textarea.setAttribute('placeholder', 'Change language with combination "shift + ctrl"');
   textarea.setAttribute('readonly', '');
   boardWrapper.appendChild(boardContainer);
   boardContainer.classList.add('board-container');
-  let keyObjValues;
-  let keyName;
   for (let i = 0; i < keys.length; i += 1) {
-    keyObjValues = Object.values(keys[i]);
-    keyName = Object.keys(keys[i]);
-    boardContainer.appendChild(createKey(keyObjValues[0], keyName[0]));
+    boardValue = keys[i].boardValue;
+    keyCode = keys[i].code;
+    keyType = keys[i].type;
+    boardContainer.appendChild(createKey(boardValue, keyCode, keyType));
   }
 }
 
-createBoard();
-
 function keyDownEvent(event) {
   event.preventDefault();
-  const pressedKey = event.code;
+  const pressedKey = document.querySelector(`#${event.code}`);
   const pressedKeyVal = event.key;
-  textarea.textContent += pressedKeyVal;
-  document.querySelector(`#${pressedKey}`).classList.add('active');
-  // if (event.code ===) {
-
-  // }
+  pressedKey.classList.add('active');
+  if (pressedKey.dataset.type === 'symbol') {
+    if (pressedKey.getAttribute('id') === 'Tab') {
+      textarea.textContent += '    ';
+    } else {
+      textarea.textContent += pressedKeyVal;
+    }
+  } else if (pressedKey.dataset.type === 'action') {
+    if (pressedKey.getAttribute('id') === 'Backspace') {
+      const inputText = textarea.textContent;
+      textarea.textContent = inputText.slice(0, -1);
+    }
+  }
 }
 
 function keyUpEvent(event) {
   event.preventDefault();
-  const pressedKey = event.code;
-  document.querySelector(`#${pressedKey}`).classList.remove('active');
+  const pressedKey = document.querySelector(`#${event.code}`);
+  pressedKey.classList.remove('active');
   // if (event.code ===) {
 
   // }
 }
+
+createBoard();
 
 document.addEventListener('keydown', (event) => keyDownEvent(event));
 document.addEventListener('keyup', (event) => keyUpEvent(event));
