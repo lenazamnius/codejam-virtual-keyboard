@@ -70,15 +70,19 @@ const textarea = document.createElement('textarea');
 const boardContainer = document.createElement('div');
 let key;
 
+textarea.setAttribute('placeholder', 'Change language with combination "shift + ctrl"');
+
 function createKey(value, keyName) {
   key = document.createElement('div');
   key.setAttribute('id', `${keyName}`);
   key.innerHTML = value;
   key.classList.add('key-item');
-  if (value === ' ') {
-    key.classList.add('space', 'key-item');
+  if (value === 'tab' || value === 'del' || value === 'ctrl' || value === 'win' || value === 'alt') {
+    key.classList.add('special', 'key-item');
   } else if (value === 'backspace' || value === 'caps lock' || value === 'shift' || value === 'enter') {
     key.classList.add('double', 'special', 'key-item');
+  } else if (value === ' ') {
+    key.classList.add('space', 'key-item');
   } else {
     key.classList.add('key-item');
   }
@@ -106,6 +110,8 @@ createBoard();
 function keyDownEvent(event) {
   event.preventDefault();
   const pressedKey = event.code;
+  const pressedKeyVal = event.key;
+  textarea.textContent += pressedKeyVal;
   document.querySelector(`#${pressedKey}`).classList.add('active');
   // if (event.code ===) {
 
