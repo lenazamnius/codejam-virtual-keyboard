@@ -127,6 +127,8 @@ function keyUpEvent(event) {
   // }
 }
 
-
 document.addEventListener('keydown', (event) => keyDownEvent(event));
 document.addEventListener('keyup', (event) => keyUpEvent(event));
+
+boardContainer.addEventListener('mousedown', (event) => event.target.classList.add('active'));
+boardContainer.addEventListener('mouseup', (event) => event.target.classList.remove('active'));
