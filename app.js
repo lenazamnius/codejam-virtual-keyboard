@@ -131,9 +131,6 @@ function keyUpEvent(event) {
   event.preventDefault();
   const pressedKey = document.querySelector(`#${event.code}`);
   pressedKey.classList.remove('active');
-  // if (event.code ===) {
-
-  // }
 }
 
 createBoard();
@@ -141,5 +138,21 @@ createBoard();
 document.addEventListener('keydown', (event) => keyDownEvent(event));
 document.addEventListener('keyup', (event) => keyUpEvent(event));
 
-boardContainer.addEventListener('mousedown', (event) => event.target.classList.add('active'));
+boardContainer.addEventListener('mousedown', (event) => {
+  const pressedKey = event.target;
+  const pressedKeyVal = pressedKey.innerText;
+  event.target.classList.add('active');
+  if (pressedKey.dataset.type === 'symbol') {
+    if (pressedKey.getAttribute('id') === 'Tab') {
+      textarea.textContent += '    ';
+    } else {
+      textarea.textContent += pressedKeyVal;
+    }
+  } else if (pressedKey.dataset.type === 'action') {
+    if (pressedKey.getAttribute('id') === 'Backspace') {
+      const inputText = textarea.textContent;
+      textarea.textContent = inputText.slice(0, -1);
+    }
+  }
+});
 boardContainer.addEventListener('mouseup', (event) => event.target.classList.remove('active'));
