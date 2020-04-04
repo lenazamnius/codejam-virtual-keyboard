@@ -67,3 +67,7 @@ textarea {
 .key-item.active {
   background-color: indianred;
 }
+
+.uppercase {
+  text-transform: uppercase;
+}
