@@ -36,7 +36,7 @@ textarea {
   justify-content: space-between;
   height: 50%;
   padding: 10px 18px 18px 10px;
-  background-color: lavenderblush;
+  background-color: rgb(230, 215, 215);
   border-radius: 3px;
   user-select: none;
 }
@@ -48,8 +48,10 @@ textarea {
   height: calc(17%);
   width: 50px;
   margin: 8px 0 0 8px;
-  background-color: grey;
+  background-color: rgb( 128, 128, 128);
   border-radius: 5px;
+  box-shadow: -2px -2px 4px 0 rgba(255, 255, 255, 1), 4px 4px 4px 0px rgba(0, 0, 0, .65);
+  transition: box-shadow 0.15s ease-in-out;
 }
 
 .key-item.double {
@@ -66,6 +68,15 @@ textarea {
 
 .key-item.active {
   background-color: indianred;
+}
+
+.on-press {
+  box-shadow: none;
+}
+
+.pressed {
+  color: indianred;
+  background-color: wheat;
 }
 
 .uppercase {

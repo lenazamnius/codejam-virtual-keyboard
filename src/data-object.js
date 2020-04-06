@@ -1,6 +1,6 @@
 const keys = [
   {
-    type: 'symbol', code: 'Backquote', boardValue: '&#96;', boardValueRu: 'ё', boardValueShift: 'a&#771;',
+    type: 'symbol', code: 'Backquote', boardValue: '&#96;', boardValueRu: 'ё', boardValueShift: '~',
   },
   {
     type: 'symbol', code: 'Digit2', boardValue: '2', boardValueShift: '!',
@@ -193,4 +193,16 @@ const keys = [
   },
 ];
 
-export default keys;
+const arrNoShiftSymbols = [];
+
+for (let i = 0; i < keys.length; i += 1) {
+  if (keys[i].boardValueShift) arrNoShiftSymbols.push(keys[i].boardValue);
+}
+
+const arrShiftSymbols = [];
+
+for (let i = 0; i < keys.length; i += 1) {
+  if (keys[i].boardValueShift) arrShiftSymbols.push(keys[i].boardValueShift);
+}
+
+export { keys, arrShiftSymbols, arrNoShiftSymbols };
