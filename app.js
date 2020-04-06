@@ -1,16 +1,16 @@
 // eslint-disable-next-line import/extensions
 import { keys, arrShiftSymbols, arrNoShiftSymbols } from './src/data-object.js';
-
-const config = {
-  capsLock: false,
-  language: 'en',
-};
+// eslint-disable-next-line import/extensions
+// import capsLock from './src/action-functions.js';
 
 const body = document.querySelector('body');
 const boardWrapper = document.createElement('div');
 const textarea = document.createElement('textarea');
 const boardContainer = document.createElement('div');
-
+const config = {
+  capsLock: false,
+  language: 'en',
+};
 
 let key;
 let keyCode;
@@ -57,6 +57,51 @@ function createBoard() {
   }
 }
 
+function toggleCase(arr, letterCase) {
+  arr.forEach((val) => {
+    if (val.getAttribute('id').startsWith('Key')) {
+      if (letterCase === 'up') val.classList.add('uppercase');
+      if (letterCase === 'down') val.classList.remove('uppercase');
+    }
+  });
+}
+
+function capsLock(pressedKey, keysSymbol) {
+  if (!config.capsLock) {
+    pressedKey.classList.add('pressed');
+    toggleCase(keysSymbol, 'up');
+    // keysSymbol.forEach((val) => {
+    //   if (val.getAttribute('id').startsWith('Key')) val.classList.add('uppercase');
+    // });
+    config.capsLock = true;
+  } else {
+    pressedKey.classList.remove('pressed');
+    toggleCase(keysSymbol, 'down');
+    // keysSymbol.forEach((val) => {
+    //   if (val.getAttribute('id').startsWith('Key')) val.classList.remove('uppercase');
+    // });
+    config.capsLock = false;
+  }
+}
+
+function shift(keysSymbol) {
+  const symbolsShift = document.querySelectorAll('[data-shift=true]');
+  for (let i = 0; i < symbolsShift.length; i += 1) {
+    symbolsShift[i].innerHTML = arrShiftSymbols[i];
+  }
+  if (!config.capsLock) {
+    toggleCase(keysSymbol, 'up');
+    // keysSymbol.forEach((val) => {
+    //   if (val.getAttribute('id').startsWith('Key')) val.classList.add('uppercase');
+    // });
+  } else {
+    toggleCase(keysSymbol, 'down');
+    // keysSymbol.forEach((val) => {
+    //   if (val.getAttribute('id').startsWith('Key')) val.classList.remove('uppercase');
+    // });
+  }
+}
+
 // =====================================================================       KEY DOWN event
 function keyDownEvent(event) {
   event.preventDefault();
@@ -66,7 +111,11 @@ function keyDownEvent(event) {
   const pressedKeyVal = pressedKey.innerText;
   const keysSymbol = document.querySelectorAll('[data-type=symbol]');
 
-  pressedKey.classList.add('active', 'on-press');
+  if (pressedKeyId === 'CapsLock') {
+    pressedKey.classList.add('on-press');
+  } else {
+    pressedKey.classList.add('active', 'on-press');
+  }
   if (pressedKey.dataset.type === 'symbol') {
     if (pressedKeyId === 'Tab') {
       textarea.textContent += '    ';
@@ -77,29 +126,9 @@ function keyDownEvent(event) {
     if (pressedKeyId === 'Backspace') {
       const inputText = textarea.textContent;
       textarea.textContent = inputText.slice(0, -1);
-    } else if (pressedKeyId === 'CapsLock') {
-      if (!config.capsLock) {
-        pressedKey.classList.add('pressed');
-        keysSymbol.forEach((val) => {
-          if (val.getAttribute('id').startsWith('Key')) val.classList.add('uppercase');
-          config.capsLock = true;
-        });
-      } else {
-        pressedKey.classList.remove('pressed');
-        keysSymbol.forEach((val) => {
-          if (val.getAttribute('id').startsWith('Key')) val.classList.remove('uppercase');
-          config.capsLock = false;
-        });
-      }
-    } else if (pressedKeyId.startsWith('Shift')) {
-      const symbolsShift = document.querySelectorAll('[data-shift=true]');
-      for (let i = 0; i < symbolsShift.length; i += 1) {
-        symbolsShift[i].innerHTML = arrShiftSymbols[i];
-      }
-      keysSymbol.forEach((val) => {
-        if (val.getAttribute('id').startsWith('Key')) val.classList.add('uppercase');
-      });
     }
+    if (pressedKeyId === 'CapsLock') capsLock(pressedKey, keysSymbol);
+    if (pressedKeyId.startsWith('Shift')) shift(keysSymbol);
   }
 }
 
@@ -116,9 +145,15 @@ function keyUpEvent(event) {
     for (let i = 0; i < symbolsShift.length; i += 1) {
       symbolsShift[i].innerHTML = arrNoShiftSymbols[i];
     }
-    keysSymbol.forEach((val) => {
-      if (val.getAttribute('id').startsWith('Key')) val.classList.remove('uppercase');
-    });
+    if (!config.capsLock) {
+      keysSymbol.forEach((val) => {
+        if (val.getAttribute('id').startsWith('Key')) val.classList.remove('uppercase');
+      });
+    } else {
+      keysSymbol.forEach((val) => {
+        if (val.getAttribute('id').startsWith('Key')) val.classList.add('uppercase');
+      });
+    }
   }
 }
 
@@ -134,7 +169,11 @@ boardContainer.addEventListener('mousedown', (event) => {
   const pressedKeyVal = pressedKey.innerText;
   const keysSymbol = document.querySelectorAll('[data-type=symbol]');
 
-  event.target.classList.add('active', 'on-press');
+  if (event.target.innerText === 'caps lock') {
+    event.target.classList.add('on-press');
+  } else {
+    event.target.classList.add('active', 'on-press');
+  }
   if (pressedKey.dataset.type === 'symbol') {
     if (pressedKey.getAttribute('id') === 'Tab') {
       textarea.textContent += '    ';
@@ -145,21 +184,23 @@ boardContainer.addEventListener('mousedown', (event) => {
     if (pressedKey.getAttribute('id') === 'Backspace') {
       const inputText = textarea.textContent;
       textarea.textContent = inputText.slice(0, -1);
-    } else if (pressedKey.getAttribute('id') === 'CapsLock') {
-      if (!config.capsLock) {
-        pressedKey.classList.add('pressed');
-        keysSymbol.forEach((val) => {
-          if (val.getAttribute('id').startsWith('Key')) val.classList.add('uppercase');
-          config.capsLock = true;
-        });
-      } else {
-        pressedKey.classList.remove('pressed');
-        keysSymbol.forEach((val) => {
-          if (val.getAttribute('id').startsWith('Key')) val.classList.remove('uppercase');
-          config.capsLock = false;
-        });
-      }
     }
+    if (pressedKey.getAttribute('id') === 'CapsLock') capsLock(pressedKey, keysSymbol);
+    // else if (pressedKey.getAttribute('id').startsWith('Shift')) {
+    //   const symbolsShift = document.querySelectorAll('[data-shift=true]');
+    //   for (let i = 0; i < symbolsShift.length; i += 1) {
+    //     symbolsShift[i].innerHTML = arrShiftSymbols[i];
+    //   }
+    //   if (!config.capsLock) {
+    //     keysSymbol.forEach((val) => {
+    //       if (val.getAttribute('id').startsWith('Key')) val.classList.add('uppercase');
+    //     });
+    //   } else {
+    //     keysSymbol.forEach((val) => {
+    //       if (val.getAttribute('id').startsWith('Key')) val.classList.remove('uppercase');
+    //     });
+    //   }
+    // }
   }
 });
 
