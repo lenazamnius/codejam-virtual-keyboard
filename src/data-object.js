@@ -177,7 +177,7 @@ const keys = [
     type: 'symbol', code: 'Space', boardValue: '&nbsp;',
   },
   {
-    type: 'symbol', code: 'AltRight', boardValue: 'alt',
+    type: 'action', code: 'AltRight', boardValue: 'alt',
   },
   {
     type: 'symbol', code: 'ArrowLeft', boardValue: '&#8592;',
@@ -194,15 +194,26 @@ const keys = [
 ];
 
 const arrNoShiftSymbols = [];
+const arrShiftSymbols = [];
+const arrSymbolsRu = [];
+const arrSymbolsEn = [];
 
 for (let i = 0; i < keys.length; i += 1) {
   if (keys[i].boardValueShift) arrNoShiftSymbols.push(keys[i].boardValue);
 }
 
-const arrShiftSymbols = [];
-
 for (let i = 0; i < keys.length; i += 1) {
   if (keys[i].boardValueShift) arrShiftSymbols.push(keys[i].boardValueShift);
 }
 
-export { keys, arrShiftSymbols, arrNoShiftSymbols };
+for (let i = 0; i < keys.length; i += 1) {
+  if (keys[i].boardValueRu) arrSymbolsRu.push(keys[i].boardValueRu);
+}
+
+for (let i = 0; i < keys.length; i += 1) {
+  if (keys[i].boardValueRu) arrSymbolsEn.push(keys[i].boardValue);
+}
+
+export {
+  keys, arrShiftSymbols, arrNoShiftSymbols, arrSymbolsRu, arrSymbolsEn, 
+};
