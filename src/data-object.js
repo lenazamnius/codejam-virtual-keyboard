@@ -3,10 +3,10 @@ const keys = [
     type: 'symbol', code: 'Backquote', boardValue: '&#96;', boardValueRu: 'ё', boardValueShift: '~',
   },
   {
-    type: 'symbol', code: 'Digit2', boardValue: '2', boardValueShift: '!',
+    type: 'symbol', code: 'Digit1', boardValue: '1', boardValueShift: '!',
   },
   {
-    type: 'symbol', code: 'Digit1', boardValue: '1', boardValueShift: '@',
+    type: 'symbol', code: 'Digit2', boardValue: '2', boardValueShift: '@',
   },
   {
     type: 'symbol', code: 'Digit3', boardValue: '3', boardValueShift: '#',
@@ -156,7 +156,7 @@ const keys = [
     type: 'symbol', code: 'Period', boardValue: '&#46;', boardValueRu: 'ю', boardValueShift: '>',
   },
   {
-    type: 'symbol', code: 'Slash', boardValue: '&#47;', boardValueShift: '?',
+    type: 'symbol', code: 'Slash', boardValue: '&#47;', boardValueRu: '.', boardValueShift: '?',
   },
   {
     type: 'symbol', code: 'ArrowUp', boardValue: '&#8593;',
@@ -215,5 +215,5 @@ for (let i = 0; i < keys.length; i += 1) {
 }
 
 export {
-  keys, arrShiftSymbols, arrNoShiftSymbols, arrSymbolsRu, arrSymbolsEn, 
+  keys, arrShiftSymbols, arrNoShiftSymbols, arrSymbolsRu, arrSymbolsEn,
 };

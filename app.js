@@ -81,15 +81,22 @@ function setAnimation(pressedKey, pressedKeyId) {
 
 function toggleCase(arr, letterCase) {
   arr.forEach((val) => {
-    const keyId = val.getAttribute('id');
-    if (keyId.startsWith('Key') || keyId.startsWith('Backquote')) {
-      if (letterCase === 'up') val.classList.add('uppercase');
-      if (letterCase === 'down') val.classList.remove('uppercase');
+    if (config.language === 'en') {
+      const keyId = val.getAttribute('id');
+      if (keyId.startsWith('Key') || keyId.startsWith('Backquote')) {
+        if (letterCase === 'up') val.classList.add('uppercase');
+        if (letterCase === 'down') val.classList.remove('uppercase');
+      }
+    } else if (config.language === 'ru') {
+      if (val.dataset.ru) {
+        if (letterCase === 'up') val.classList.add('uppercase');
+        if (letterCase === 'down') val.classList.remove('uppercase');
+      }
     }
   });
 }
 
-function capsLock(pressedKey, keysSymbol) {
+function capsLock(keysSymbol, pressedKey) {
   if (!config.capsLock) {
     pressedKey.classList.add('pressed');
     toggleCase(keysSymbol, 'up');
@@ -103,9 +110,13 @@ function capsLock(pressedKey, keysSymbol) {
 
 function shift(keysSymbol, arrSymbols, capsY, capsN) {
   let symbolsShift = [...document.querySelectorAll('[data-shift=true]')];
-  if (config.language === 'ru') symbolsShift = symbolsShift.slice(1);
+  let arrSymb = arrSymbols;
+  if (config.language === 'ru') {
+    symbolsShift = symbolsShift.slice(1).filter((val) => !val.dataset.ru);
+    arrSymb = arrSymbols.slice(1);
+  }
   for (let i = 0; i < symbolsShift.length; i += 1) {
-    symbolsShift[i].innerHTML = arrSymbols[i];
+    symbolsShift[i].innerHTML = arrSymb[i];
   }
   if (!config.capsLock) {
     toggleCase(keysSymbol, capsY);
@@ -128,7 +139,6 @@ function toggleLang() {
   localStorage.setItem('lang', curLang);
 }
 
-// =====================================================================    KEY DOWN event function
 function keyDownEvent(event) {
   const pressedKey = document.querySelector(`#${event.code}`);
   const pressedKeyId = pressedKey.getAttribute('id');
@@ -149,13 +159,12 @@ function keyDownEvent(event) {
       textarea.textContent = inputText.slice(0, -1);
     }
     if (pressedKeyId === 'Enter') textarea.textContent += '\n';
-    if (pressedKeyId === 'CapsLock') capsLock(pressedKey, keysSymbol);
+    if (pressedKeyId === 'CapsLock') capsLock(keysSymbol, pressedKey);
     if (pressedKeyId.startsWith('Shift')) shift(keysSymbol, arrShiftSymbols, 'up', 'down');
     if (event.ctrlKey && event.altKey) toggleLang();
   }
 }
 
-// =====================================================================      KEY UP event function
 function keyUpEvent(event) {
   const pressedKey = document.querySelector(`#${event.code}`);
   const pressedKeyId = pressedKey.getAttribute('id');
@@ -166,11 +175,13 @@ function keyUpEvent(event) {
   if (pressedKeyId.startsWith('Shift')) shift(keysSymbol, arrNoShiftSymbols, 'down', 'up');
 }
 
+// ==================================================================  events
+
 createBoard();
+
 document.addEventListener('keydown', (event) => keyDownEvent(event));
 document.addEventListener('keyup', (event) => keyUpEvent(event));
 
-// =====================================================================     ON CLICK event
 boardContainer.addEventListener('mousedown', (event) => {
   const pressedKey = event.target;
   const pressedKeyVal = pressedKey.innerText;
@@ -189,7 +200,7 @@ boardContainer.addEventListener('mousedown', (event) => {
       const inputText = textarea.textContent;
       textarea.textContent = inputText.slice(0, -1);
     }
-    if (pressedKey.getAttribute('id') === 'CapsLock') capsLock(pressedKey, keysSymbol);
+    if (pressedKey.getAttribute('id') === 'CapsLock') capsLock(keysSymbol, pressedKey);
     if (pressedKey.getAttribute('id').startsWith('Shift')) shift(keysSymbol, arrShiftSymbols, 'up', 'down');
   }
 });
