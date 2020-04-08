@@ -58,7 +58,7 @@ function createBoard() {
   boardWrapper.appendChild(textarea);
   boardWrapper.appendChild(boardContainer);
   boardContainer.classList.add('board-container');
-  textarea.setAttribute('placeholder', 'Change language with combination "shift + ctrl"');
+  textarea.setAttribute('placeholder', 'Change language with combination "ctrl + alt"');
   textarea.setAttribute('readonly', '');
 
   for (let i = 0; i < keys.length; i += 1) {
