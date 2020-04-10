@@ -16,5 +16,11 @@
         "sourceType": "module"
     },
     "rules": {
+        "linebreak-style": "off"
+    },
+    "settings": {
+        "import/extensions": [
+            ".js"
+        ]
     }
 }

@@ -1,7 +1,10 @@
-/* eslint-disable import/extensions */
 import {
-  keys, arrShiftSymbols, arrNoShiftSymbols, arrSymbolsRu, arrSymbolsEn,
-} from './src/data-object.js';
+  keys,
+  arrShiftSymbols,
+  arrNoShiftSymbols,
+  arrSymbolsRu,
+  arrSymbolsEn,
+} from './src/data-object';
 
 const body = document.querySelector('body');
 const boardWrapper = document.createElement('div');
@@ -14,19 +17,18 @@ const config = {
 
 function createKey(value, code, type, valueRu, valueShift) {
   const key = document.createElement('div');
+
   key.setAttribute('id', `${code}`);
   key.setAttribute('data-type', `${type}`);
+
   if (valueRu) key.setAttribute('data-ru', `${valueRu}`);
   if (valueShift) key.setAttribute('data-shift', `${valueShift}`);
   if (config.language === 'en') {
     key.innerHTML = value;
   } else if (config.language === 'ru') {
-    if (key.dataset.ru) {
-      key.innerHTML = valueRu;
-    } else {
-      key.innerHTML = value;
-    }
+    key.innerHTML = key.dataset.ru ? valueRu : value;
   }
+
   switch (value) {
     case 'tab' || 'del' || 'ctrl' || 'win' || 'alt':
       key.classList.add('special', 'key-item');
@@ -43,6 +45,7 @@ function createKey(value, code, type, valueRu, valueShift) {
     default:
       key.classList.add('key-item');
   }
+
   return key;
 }
 
@@ -58,7 +61,7 @@ function createBoard() {
   boardWrapper.appendChild(textarea);
   boardWrapper.appendChild(boardContainer);
   boardContainer.classList.add('board-container');
-  textarea.setAttribute('placeholder', 'Change language with combination "shift + ctrl"');
+  textarea.setAttribute('placeholder', 'Change language with combination "ctrl + alt"');
   textarea.setAttribute('readonly', '');
 
   for (let i = 0; i < keys.length; i += 1) {
@@ -81,17 +84,14 @@ function setAnimation(pressedKey, pressedKeyId) {
 
 function toggleCase(arr, letterCase) {
   arr.forEach((val) => {
-    if (config.language === 'en') {
-      const keyId = val.getAttribute('id');
-      if (keyId.startsWith('Key') || keyId.startsWith('Backquote')) {
-        if (letterCase === 'up') val.classList.add('uppercase');
-        if (letterCase === 'down') val.classList.remove('uppercase');
-      }
-    } else if (config.language === 'ru') {
-      if (val.dataset.ru) {
-        if (letterCase === 'up') val.classList.add('uppercase');
-        if (letterCase === 'down') val.classList.remove('uppercase');
-      }
+    const keyId = val.getAttribute('id');
+
+    if (config.language === 'en' && (keyId.startsWith('Key') || keyId.startsWith('Backquote'))) {
+      if (letterCase === 'up') val.classList.add('uppercase');
+      if (letterCase === 'down') val.classList.remove('uppercase');
+    } else if (config.language === 'ru' && val.dataset.ru) {
+      if (letterCase === 'up') val.classList.add('uppercase');
+      if (letterCase === 'down') val.classList.remove('uppercase');
     }
   });
 }
@@ -111,13 +111,16 @@ function capsLock(keysSymbol, pressedKey) {
 function shift(keysSymbol, arrSymbols, capsY, capsN) {
   let symbolsShift = [...document.querySelectorAll('[data-shift=true]')];
   let arrSymb = arrSymbols;
+
   if (config.language === 'ru') {
     symbolsShift = symbolsShift.slice(1).filter((val) => !val.dataset.ru);
     arrSymb = arrSymbols.slice(1);
   }
+
   for (let i = 0; i < symbolsShift.length; i += 1) {
     symbolsShift[i].innerHTML = arrSymb[i];
   }
+
   if (!config.capsLock) {
     toggleCase(keysSymbol, capsY);
   } else {
@@ -128,6 +131,7 @@ function shift(keysSymbol, arrSymbols, capsY, capsN) {
 function toggleLang() {
   const keysLangSymbol = document.querySelectorAll('[data-ru]');
   const curLang = config.language === 'en' ? 'ru' : 'en';
+
   for (let i = 0; i < keysLangSymbol.length; i += 1) {
     if (curLang === 'ru') {
       keysLangSymbol[i].innerHTML = arrSymbolsRu[i];
@@ -135,6 +139,7 @@ function toggleLang() {
       keysLangSymbol[i].innerHTML = arrSymbolsEn[i];
     }
   }
+
   config.language = curLang;
   localStorage.setItem('lang', curLang);
 }
@@ -147,6 +152,7 @@ function keyDownEvent(event) {
 
   event.preventDefault();
   setAnimation(pressedKey, pressedKeyId);
+
   if (pressedKey.dataset.type === 'symbol') {
     if (pressedKeyId === 'Tab') {
       textarea.textContent += '    ';
@@ -189,6 +195,7 @@ boardContainer.addEventListener('mousedown', (event) => {
   const keysSymbol = document.querySelectorAll('[data-type=symbol]');
 
   setAnimation(pressedKey, pressedKeyId);
+
   if (pressedKey.dataset.type === 'symbol') {
     if (pressedKey.getAttribute('id') === 'Tab') {
       textarea.textContent += '    ';
@@ -208,6 +215,7 @@ boardContainer.addEventListener('mousedown', (event) => {
 boardContainer.addEventListener('mouseup', (event) => {
   const pressedKey = event.target;
   const keysSymbol = document.querySelectorAll('[data-type=symbol]');
+
   event.target.classList.remove('active', 'on-press');
   if (pressedKey.getAttribute('id').startsWith('Shift')) shift(keysSymbol, arrNoShiftSymbols, 'down', 'up');
 });
