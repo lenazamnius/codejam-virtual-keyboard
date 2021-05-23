@@ -1,7 +1,97 @@
 body {
   background-color: lightsalmon;
-  font: 700 25px 'PT Sans', sans-serif;
+  font: 700 22px 'PT Sans', sans-serif;
   color: wheat;
   letter-spacing: 0.04em;
   text-align: center;
+}
+
+.wrapper {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  width: 900px;
+  height: 600px;
+  margin: 8% auto;
+  padding: 10px;
+  border-radius: 3px;
+  background-color: indianred;
+}
+
+textarea {
+  height: 50%;
+  margin-bottom: 15px;
+  padding: 15px;
+  border: none;
+  border-radius: 3px;
+  box-shadow: grey;
+  font-size: 16px;
+  outline: none;
+  resize: none;
+  cursor: pointer;
+}
+
+.board-container {
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  height: 50%;
+  padding: 10px 18px 18px 10px;
+  background-color: rgb(230, 215, 215);
+  border-radius: 3px;
+  -webkit-user-select: none;
+    -moz-user-select: none;
+      -ms-user-select: none;
+  user-select: none;
+}
+
+.key-item {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  height: calc(17%);
+  width: 50px;
+  margin: 8px 0 0 8px;
+  background-color: rgba( 128, 128, 128, .75);
+  border-radius: 5px;
+  box-shadow: -2px -2px 4px 0 rgba(255, 255, 255, 1), 
+               4px 4px 4px 0px rgba(0, 0, 0, .6);
+  -webkit-transition: box-shadow 0.15s ease-in-out;
+  transition: box-shadow 0.15s ease-in-out;
+}
+
+.key-item.double {
+  width: 109px;
+}
+
+.key-item.special {
+  font-size: 20px;
+}
+
+.key-item.space {
+  width: 400px;
+}
+
+.key-item.active, .key-item:hover {
+  background-color: indianred;
+}
+
+.on-press {
+  box-shadow: none;
+}
+
+.pressed {
+  color: rgb( 128, 128, 128);
+  background-color: wheat;
+}
+
+.uppercase {
+  text-transform: uppercase;
 }
